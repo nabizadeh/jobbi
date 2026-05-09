@@ -1,0 +1,32 @@
+{
+  "allowedTools": [
+    "Read",
+    "Write",
+    "Edit",
+    "WebFetch",
+    "WebSearch",
+
+    "Bash(ls*)",
+    "Bash(find*)",
+    "Bash(mkdir*)",
+    "Bash(cp*)",
+    "Bash(mv*)",
+    "Bash(wc*)",
+    "Bash(grep*)",
+    "Bash(cat*)",
+    "Bash(diff*)",
+
+    "Bash(pdflatex*)",
+    "Bash(tectonic*)",
+    "Bash(latexmk*)",
+    "Bash(pdftotext*)",
+    "Bash(pdfinfo*)",
+
+    "Bash(python3*)",
+
+    "Bash(pandoc*)",
+
+    "Bash(open*)",
+    "Bash(xdg-open*)"
+  ]
+}

@@ -1,0 +1,25 @@
+Base resume used: CandidateName_Resume.pdf
+
+--- SUMMARY EDITS ---
+Reordered summary to lead with RNA biology and translational research experience,
+directly mirroring the job's primary focus. mRNA and LNP terminology elevated to
+the first sentence.
+
+--- BULLETS EMPHASIZED ---
+- LNP formulation and in vivo delivery bullets moved to top of most recent role.
+- NGS/bioinformatics bullet retained and placed prominently in skills.
+- Cross-functional collaboration bullet added emphasis (already present in source).
+
+--- BULLETS DEPRIORITIZED ---
+- Immunology-specific bullets moved lower; still retained as supporting evidence
+  of translational breadth.
+
+--- SKILLS SECTION ADJUSTMENTS ---
+- RNA characterization methods listed first.
+- Bioinformatics tools section kept intact; reordered to show NGS tools first.
+
+--- OMITTED CONTENT ---
+- None. All source content retained; only ordering adjusted.
+
+--- KEYWORD BOLDING APPLIED ---
+Bold applied to: mRNA, LNP, RNA, NGS, in vivo, translational, single-cell RNA-seq

@@ -1,0 +1,16 @@
+Place your resume file(s) in this folder, then run Claude Code from the jobbi root directory.
+
+Supported formats:
+  .pdf    — preferred (used as visual reference for LaTeX output)
+  .docx   — Microsoft Word
+  .doc    — legacy Microsoft Word
+  .odt    — OpenDocument (LibreOffice)
+  .tex    — LaTeX source
+
+You can place multiple resumes here. jobbi will read all of them and use the most
+relevant one as the base for each job application.
+
+If you provide both a PDF and a Word/LaTeX version of the same resume, the PDF
+will be used as the visual formatting reference.
+
+Do NOT rename or delete this file — it keeps the folder visible in git.

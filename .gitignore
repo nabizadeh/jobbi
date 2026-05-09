@@ -1,0 +1,56 @@
+# Personal profile — generated on first run, never commit this
+profile.md
+
+# Resume files in resumes/ — personal, never commit
+resumes/*.pdf
+resumes/*.docx
+resumes/*.doc
+resumes/*.odt
+resumes/*.tex
+
+# Generated job output folders (nested under results/ going forward)
+results/
+# Legacy root-level job folders from pre-results/ runs
+*_Senior_*/
+*_Principal_*/
+*_Staff_*/
+*_Associate_*/
+*_ML_*/
+*_Data_*/
+*_Computational_*/
+*_Research_*/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Job tracking CSV — personal data, never commit
+job_tracking.csv
+
+# Generated dashboard — personal, rebuilt each run
+dashboard.html
+
+# Cached resume text — generated from user's resume files
+resumes/*.txt
+# Keep the placeholder visible in git
+!resumes/DROP_YOUR_RESUME_HERE.txt
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Keep Claude Code project settings — intentionally committed
+# settings.local.json is user-specific (personal paths, approved commands) — never commit
+.claude/settings.local.json
+!.claude/settings.json
