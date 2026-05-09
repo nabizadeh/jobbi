@@ -108,7 +108,7 @@ Delete `profile.md` and run Claude Code again. jobbi will re-read your resumes a
 - Activate LinkedIn Premium or make any purchases
 - Overwrite your original resume PDFs
 - Invent experience, publications, or skills not in your resume
-- Use job boards other than LinkedIn and official company career pages (no Indeed, Glassdoor, etc.)
+- Use unverified or unofficial job sources — secondary sources (Indeed, Glassdoor, Built In, ZipRecruiter, etc.) are cross-referenced against the primary listing before being accepted
 
 ---
 
