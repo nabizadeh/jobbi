@@ -1,5 +1,9 @@
 # jobbi
 
+<p align="center">
+  <img src="Jobbi_Logo.png" alt="jobbi logo" width="600"/>
+</p>
+
 An autonomous job search and resume tailoring agent for Claude Code.
 
 Drop your resume in a folder, run Claude Code, and jobbi finds matching jobs, scores them, and generates a tailored PDF resume for each one — ready to submit.
