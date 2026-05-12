@@ -198,10 +198,31 @@ Job source rules:
 =====================================
 ORCHESTRATOR STEP 2 — ACTIVE-CANDIDACY VERIFICATION
 =====================================
-For EVERY candidate job before scoring:
-- Open the job link.
-- Confirm it is still live and accepting candidates.
-- Reject if: "no longer accepting candidates", expired, closed, or uncertain.
+For EVERY candidate job before scoring, perform ALL of the following checks:
+
+1. Fetch the job's ORIGINAL SOURCE PAGE (company career page or ATS link — e.g. greenhouse.io,
+   lever.co, workday, myworkdayjobs, oracle cloud, company careers subdomain).
+   Do NOT rely solely on the job board listing (LinkedIn, Built In, Indeed, etc.) — those
+   aggregate pages cache stale data and do not reflect real-time posting status.
+
+2. On the source page, confirm ALL of the following:
+   a. The page loads and returns the job description (not a 404 or redirect to a jobs index).
+   b. An "Apply" button or application form is present and functional.
+   c. There is NO language indicating closure: "no longer accepting", "position filled",
+      "this job has been removed", "application closed", "expired", or equivalent.
+
+3. Extract the DIRECT APPLY LINK from the source page (the URL of the application form or the
+   ATS apply button href). This becomes the canonical apply link stored in job_details.txt
+   and job_tracking.csv. Never store a job board listing URL as the apply link.
+
+4. Reject the job if ANY of the following are true:
+   - The source page returns an error or redirects away from the job.
+   - No apply button or form is found on the source page.
+   - The page contains closure language.
+   - The source page URL cannot be determined from the job board listing.
+   - Uncertainty: if you cannot confidently confirm the job is open, REJECT it.
+
+Log each verified job's source URL and apply link separately in job_details.txt.
 
 =====================================
 ORCHESTRATOR STEP 3 — SCORING & FILTERING
@@ -243,8 +264,9 @@ Write job_details.txt inside each job subfolder with:
 - Location
 - Date Posted
 - Match Score
-- Apply Link
-- Source
+- Source URL (the job board or search result where it was found)
+- Verified Source Page (the company/ATS page confirmed open in Step 2)
+- Verified Apply Link (direct apply button URL from the source page)
 - Full job description text
 - Match rationale (which profile fields drove the score)
 
@@ -254,7 +276,7 @@ Note: job_tracking.csv stays at the repo root — it is cumulative across all ru
 ORCHESTRATOR STEP 5 — UPDATE CSV
 =====================================
 File: job_tracking.csv
-Columns: Job Title, Company, Location, Date Posted, Match Score, Apply Link, Source
+Columns: Job Title, Company, Location, Date Posted, Match Score, Verified Apply Link, Source URL
 
 Append all accepted jobs now — BEFORE launching subagents.
 Never duplicate an entry with the same Job Title + Company.
