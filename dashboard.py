@@ -39,6 +39,7 @@ HTML = """<!DOCTYPE html>
   --s-interview: #f59e0b;
   --s-accepted:  #22c55e;
   --s-rejected:  #ef4444;
+  --s-ignored:   #334155;
 }
 
 body {
@@ -95,6 +96,7 @@ body {
 .stat[data-f="interviewing"] .stat-number { color: var(--s-interview); }
 .stat[data-f="accepted"]     .stat-number { color: var(--s-accepted); }
 .stat[data-f="rejected"]     .stat-number { color: var(--s-rejected); }
+.stat[data-f="ignored"]      .stat-number { color: var(--s-ignored); }
 
 /* ── Toolbar ── */
 .toolbar {
@@ -165,6 +167,7 @@ tbody tr[data-status="applied"]          { border-left-color: var(--s-applied); 
 tbody tr[data-status="interviewing"]     { border-left-color: var(--s-interview); }
 tbody tr[data-status="accepted"]         { border-left-color: var(--s-accepted); }
 tbody tr[data-status="rejected"]         { border-left-color: var(--s-rejected); opacity: 0.45; }
+tbody tr[data-status="ignored"]          { border-left-color: var(--s-ignored); opacity: 0.3; }
 
 td { padding: 10px 14px; vertical-align: middle; }
 
@@ -210,6 +213,7 @@ td { padding: 10px 14px; vertical-align: middle; }
 .status-select[data-s="interviewing"] { color: var(--s-interview);  border-color: var(--s-interview); background: rgba(245,158,11,0.12); }
 .status-select[data-s="accepted"]     { color: var(--s-accepted);   border-color: var(--s-accepted);  background: rgba(34,197,94,0.12); }
 .status-select[data-s="rejected"]     { color: var(--s-rejected);   border-color: var(--s-rejected);  background: rgba(239,68,68,0.12); }
+.status-select[data-s="ignored"]      { color: var(--s-ignored);    border-color: var(--s-ignored);   background: rgba(51,65,85,0.12); }
 
 /* ── Apply button ── */
 .td-apply { white-space: nowrap; }
@@ -278,13 +282,14 @@ td { padding: 10px 14px; vertical-align: middle; }
 <script>
 const JOBS = __JOBS_JSON__;
 
-const STATUS_ORDER = ['none','applied','interviewing','accepted','rejected'];
+const STATUS_ORDER = ['none','applied','interviewing','accepted','rejected','ignored'];
 const STATUS_OPTS  = [
   { v:'none',         label:'— Pending' },
   { v:'applied',      label:'✓ Applied' },
   { v:'interviewing', label:'⟳ Interviewing' },
   { v:'accepted',     label:'★ Accepted' },
   { v:'rejected',     label:'✕ Rejected' },
+  { v:'ignored',      label:'⊘ Ignore' },
 ];
 
 function lsKey(j) { return 'jobbi__' + (j['Company']||'') + '__' + (j['Job Title']||''); }
@@ -304,8 +309,12 @@ let sortDir = 'desc';
 
 /* ── Stats ── */
 function counts() {
-  const c = { all:JOBS.length, none:0, applied:0, interviewing:0, accepted:0, rejected:0 };
-  JOBS.forEach(j => c[getStatus(j)]++);
+  const c = { all:0, none:0, applied:0, interviewing:0, accepted:0, rejected:0, ignored:0 };
+  JOBS.forEach(j => {
+    const s = getStatus(j);
+    c[s]++;
+    if (s !== 'ignored') c.all++;
+  });
   return c;
 }
 
@@ -318,6 +327,7 @@ function renderStats() {
     { f:'interviewing', label:'Interviewing' },
     { f:'accepted',     label:'Accepted' },
     { f:'rejected',     label:'Rejected' },
+    { f:'ignored',      label:'Ignored' },
   ];
   document.getElementById('stats').innerHTML = defs.map(d =>
     `<div class="stat ${activeFilter===d.f?'active':''}" data-f="${d.f}" onclick="setFilter('${d.f}')">
@@ -351,7 +361,9 @@ function render() {
   const q = document.getElementById('search').value.toLowerCase();
 
   let jobs = JOBS.filter(j => {
-    if (activeFilter !== 'all' && getStatus(j) !== activeFilter) return false;
+    const s = getStatus(j);
+    if (activeFilter === 'all' && s === 'ignored') return false;
+    if (activeFilter !== 'all' && s !== activeFilter) return false;
     if (q) {
       const hay = [(j['Job Title']||''),(j['Company']||''),(j['Location']||'')].join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
