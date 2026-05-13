@@ -262,7 +262,10 @@ Write job_details.txt inside each job subfolder with:
 - Job Title
 - Company
 - Location
-- Date Posted
+- Date Posted: MUST be an absolute calendar date in YYYY-MM-DD format.
+  If the job board shows a relative date ("1 day ago", "3 days ago", "reposted 2 hours ago"),
+  convert it to an absolute date using today's date before writing. Never write relative
+  strings like "X days ago", "reposted", or "unknown" — always resolve to YYYY-MM-DD.
 - Match Score
 - Source URL (the job board or search result where it was found)
 - Verified Source Page (the company/ATS page confirmed open in Step 2)
@@ -277,6 +280,8 @@ ORCHESTRATOR STEP 5 — UPDATE CSV
 =====================================
 File: job_tracking.csv
 Columns: Job Title, Company, Location, Date Posted, Match Score, Verified Apply Link, Source URL
+
+Date Posted in the CSV must be an absolute date in YYYY-MM-DD format — same rule as above.
 
 Append all accepted jobs now — BEFORE launching subagents.
 Never duplicate an entry with the same Job Title + Company.
