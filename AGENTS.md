@@ -82,6 +82,7 @@ STRONGEST_SCIENTIFIC_THEMES: {{STRONGEST_SCIENTIFIC_THEMES}}
 --- SEARCH PREFERENCES ---
 JOB_RECENCY_DAYS: {{JOB_RECENCY_DAYS}}
 MIN_JOBS_PER_RUN: {{MIN_JOBS_PER_RUN}}
+RESUME_PAGE_LIMIT: {{RESUME_PAGE_LIMIT}}
 
 --- RESUME FILES ---
 RESUME_FILES: {{RESUME_FILES}}
@@ -119,6 +120,10 @@ Search preference fields — ask these explicitly with the defaults shown:
     If user presses Enter or provides no input → use 5.
     Do NOT lower quality standards to meet this number.
 
+  RESUME_PAGE_LIMIT:
+    Ask: "How many pages should the tailored resume be? (default: 2):"
+    If user presses Enter or provides no input → use 2.
+
 =====================================
 SETUP STEP 4 — SAVE profile.md
 =====================================
@@ -155,6 +160,7 @@ STRONGEST_SCIENTIFIC_THEMES: <value>
 
 JOB_RECENCY_DAYS: <value>
 MIN_JOBS_PER_RUN: <value>
+RESUME_PAGE_LIMIT: <value>
 
 RESUME_FILES: <value>
 ---
@@ -419,6 +425,13 @@ Header:
 - Compact, tight spacing
 
 Sections:
+- Use EXACTLY this order, every time:
+    1. Header (name + contact — not a titled section)
+    2. PROFESSIONAL SUMMARY
+    3. WORK EXPERIENCE
+    4. EDUCATION
+    5. TECHNICAL SKILLS
+    6. SELECTED PUBLICATIONS (omit only if the source resume contains no publications)
 - Titles in uppercase, left-aligned
 - Horizontal rule before every section (use \rule{\textwidth}{0.4pt})
 - Rule must start on its own line — prepend \par if needed
@@ -433,7 +446,8 @@ Bullets:
 - Standard round bullets, compact itemize environments
 - Wrapped lines align under text, not under bullet symbol
 
-Page count: target 2 pages. Do not force 1 page. Do not exceed 2 pages.
+Page count: read RESUME_PAGE_LIMIT from profile.md and target exactly that many pages.
+Do not exceed it. Do not fall more than half a page short of it.
 
 =====================================
 SUBAGENT STEP 5 — KEYWORD BOLDING
@@ -500,9 +514,9 @@ Revision workflow:
    - Do not add or remove keyword bolding beyond what was asked.
    - Preserve all other content exactly as it is.
 4. Recompile the PDF:
-   - Run pdflatex twice in the job folder.
+   - Use tectonic if pdflatex is unavailable (same fallback order as SUBAGENT STEP 6).
    - If compilation fails: read only the relevant error lines, fix, retry.
-   - Do NOT dump the full pdflatex log into context.
+   - Do NOT dump the full compiler log into context.
    - Validate the PDF exists, is non-empty, and has no blank trailing page.
 5. Confirm to the user what changed and that the PDF was recompiled successfully.
    Append a brief note to resume_changes.txt describing the revision and date.
