@@ -174,26 +174,36 @@ Keep your context lean: do not read full resume PDFs or generate any LaTeX here.
 Your inputs are profile.md and job pages. Your outputs are job folders and subagent launches.
 
 =====================================
-ORCHESTRATOR STEP 1 — JOB SEARCH
+ORCHESTRATOR STEP 1 — JOB SEARCH VIA JOBSPY MCP
 =====================================
-Target roles: use TARGET_ROLES from profile.md.
-Domain keywords: use PRIMARY_DOMAINS and STRONGEST_SCIENTIFIC_THEMES from profile.md.
+Use the JobSpy MCP tool (search_jobs) to search multiple job boards in a single call.
+Do NOT launch any subagents for job searching.
 
-Search rules:
-- Posted within the past JOB_RECENCY_DAYS days (read from profile.md).
-- Use LinkedIn as primary source; official company career pages as secondary.
-- Perform DEEP search using multiple keyword combinations derived from profile.md.
-- Explore multiple pages of results, not just the first page.
-- Use time and location filters based on profile.md location priorities and Remote US.
+Build the parameters from profile.md:
+- site_name: ["linkedin", "indeed", "glassdoor", "zip_recruiter", "google"]
+- search_term: the most relevant value from TARGET_ROLES
+- results_wanted: 25
+- hours_old: JOB_RECENCY_DAYS × 24
 
-Job source rules:
-- Primary sources: LinkedIn, official company career pages.
-- Secondary sources: Indeed, Built In (Built In Boston, Built In SF), Glassdoor, ZipRecruiter,
-  Angel List, Crunchbase, and reputable biotech/life sciences job boards.
-- NEVER use: Greenhouse API, Lever API, LinkedIn guest APIs, or any curl/wget to job boards.
-- For all jobs found via secondary sources: verify job details are current and match company needs.
-- If a role is found on secondary sources, cross-reference with official company page when possible.
-- If verification shows the role is outdated or closed → SKIP.
+Make one call per location + one remote call:
+1. location: LOCATION_PRIORITY_1, is_remote: false
+2. location: LOCATION_PRIORITY_2 (if set and different from PRIORITY_1), is_remote: false
+3. location: LOCATION_PRIORITY_3 (if set and different from the above), is_remote: false
+4. is_remote: true (no location filter)
+
+If only one location is set, two calls suffice (that location + remote).
+
+Collect all results in memory as a flat list. Proceed to STEP 1b.
+
+=====================================
+ORCHESTRATOR STEP 1b — DEDUPLICATE RESULTS
+=====================================
+Combine all JobSpy MCP results into one flat candidate list.
+Deduplicate: if two entries share the same Job Title AND Company, keep only one.
+Prefer the entry from the higher-priority source:
+  linkedin > indeed > glassdoor > zip_recruiter > google
+
+Proceed to STEP 2 with the deduplicated list.
 
 =====================================
 ORCHESTRATOR STEP 2 — ACTIVE-CANDIDACY VERIFICATION
@@ -442,12 +452,13 @@ Rules:
 SUBAGENT STEP 6 — COMPILE PDF
 =====================================
 1. Write the .tex file as <CandidateName>_Resume.tex in the job folder.
-2. Compile with pdflatex (run twice for stable output).
+2. Check for compilers in this order:
+   a. pdflatex — if available, run twice for stable output.
+   b. tectonic (/usr/local/bin/tectonic) — use if pdflatex is not found or fails.
 3. If compilation fails: read only the relevant error lines, fix the source, retry.
-   Do NOT dump the full pdflatex log into context.
+   Do NOT dump the full pdflatex/tectonic log into context.
 4. Validate the PDF exists and is non-empty.
 5. Verify no blank trailing page exists. If one does, fix and recompile.
-6. If tectonic is available and pdflatex fails repeatedly, switch to tectonic.
 
 =====================================
 SUBAGENT STEP 7 — WRITE OUTPUT FILES
