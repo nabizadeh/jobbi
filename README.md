@@ -41,14 +41,43 @@ cp /path/to/YourResume.pdf resumes/   # or .txt, .md, .docx, .tex
 
 # 3. Run Claude Code
 claude
+
+# 4. Paste this prompt to kick things off:
+# "Start jobbi — read my resume, set up my profile, and search for matching jobs."
 ```
 
-On first run, jobbi will:
+Once you send that prompt, jobbi will:
 - Detect your resume file(s)
 - Extract your profile automatically
 - Ask you only for anything it couldn't find
 - Save a `profile.md` so setup never runs again
 - Start searching for jobs
+
+---
+
+## What to type
+
+Once Claude Code is open in the jobbi directory, paste one of these prompts:
+
+**First run** — profile setup + job search:
+```
+Start jobbi — read my resume, set up my profile, and search for matching jobs.
+```
+
+**Later runs** — skip setup, go straight to job search:
+```
+Run jobbi — search for new job matches and generate tailored resumes.
+```
+
+**Revise a resume** — after jobs have been found:
+```
+Update the [Company] resume — [describe the change, e.g. "shorten the summary" or "remove the third bullet in the most recent role"].
+```
+
+**Refresh the dashboard** — without running a new search:
+```
+Regenerate the dashboard from job_tracking.csv.
+```
 
 ---
 
