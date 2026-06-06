@@ -113,7 +113,15 @@ Regenerate the dashboard from job_tracking.csv.
 
 ```
 jobbi/
-├── AGENTS.md                          # Agent instructions (the brain)
+├── AGENTS.md                          # Entry point — routes to agents/ modules
+├── agents/                            # Modular agent instructions
+│   ├── core-rules.md                  # Hard rules for all agents
+│   ├── setup.md                       # First-run profile setup
+│   ├── orchestrator.md                # Job search and subagent coordination
+│   ├── resume-tailor.md               # Resume tailoring logic
+│   ├── resume-style.md                # LaTeX formatting — edit to customize for your market
+│   └── revision.md                    # Post-generation resume revision
+├── setup.sh                           # One-command JobSpy MCP installer
 ├── .claude/settings.json              # Pre-approved commands (no permission prompts)
 ├── profile.md                         # Auto-generated on first run (gitignored)
 ├── job_tracking.csv                   # Cumulative job log across all runs (gitignored)
