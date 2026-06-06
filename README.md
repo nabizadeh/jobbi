@@ -136,7 +136,8 @@ jobbi/
             ├── job_details.txt        # Full job info and match rationale
             ├── YourName_Resume.tex    # Tailored LaTeX source
             ├── YourName_Resume.pdf    # Compiled, submission-ready PDF
-            └── resume_changes.txt     # What changed and why
+            ├── resume_changes.txt     # What changed and why
+            └── cover_letter.md        # Cover letter draft (if COVER_LETTER: yes)
 ```
 
 ---

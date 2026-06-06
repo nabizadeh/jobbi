@@ -209,6 +209,7 @@ After all subagents complete:
    - Total jobs found and accepted
    - Run folder used (results/YYYY-MM-DD/ or results/YYYY-MM-DD_N/)
    - List of job subfolders created inside it
+   - Whether cover letters were generated (if COVER_LETTER: yes in profile.md)
    - Any subagent that failed and why
    - Reminder that job_tracking.csv at the repo root holds all runs cumulatively
 

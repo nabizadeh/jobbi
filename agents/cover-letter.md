@@ -79,8 +79,7 @@ STEP 8d — WRITE OUTPUT FILE
 =====================================
 Write cover_letter.md to the job folder with this format:
 
----
-**[Job Title] — [Company]**
+# [Job Title] — [Company]
 
 [Cover letter body — plain paragraphs, no bullet points]
 
