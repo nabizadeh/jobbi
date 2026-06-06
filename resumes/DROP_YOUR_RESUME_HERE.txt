@@ -6,11 +6,13 @@ Supported formats:
   .doc    — legacy Microsoft Word
   .odt    — OpenDocument (LibreOffice)
   .tex    — LaTeX source
+  .md     — Markdown (read directly, no conversion needed)
+  .txt    — Plain text (read directly, no conversion needed)
 
 You can place multiple resumes here. jobbi will read all of them and use the most
 relevant one as the base for each job application.
 
-If you provide both a PDF and a Word/LaTeX version of the same resume, the PDF
+If you provide both a PDF and a plain-text version of the same resume, the PDF
 will be used as the visual formatting reference.
 
 Do NOT rename or delete this file — it keeps the folder visible in git.

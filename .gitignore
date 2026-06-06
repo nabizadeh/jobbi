@@ -35,7 +35,7 @@ job_tracking.csv
 # Generated dashboard — personal, rebuilt each run
 dashboard.html
 
-# Cached resume text — generated from user's resume files
+# Resume files and cached plain-text extracts — personal, never commit
 resumes/*.txt
 resumes/*.md
 # Keep the placeholder visible in git

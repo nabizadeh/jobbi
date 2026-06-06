@@ -12,7 +12,7 @@ Drop your resume in a folder, run Claude Code, and jobbi finds matching jobs, sc
 
 ## What it does
 
-1. **First run:** reads your resume PDF(s), builds a personal profile, asks you to fill any gaps
+1. **First run:** reads your resume file(s), builds a personal profile, asks you to fill any gaps
 2. **Every run after:** skips setup and goes straight to job hunting
 3. Searches LinkedIn and official company career pages for roles posted in the last 14 days
 4. Scores each job against your profile (skills, domain, seniority, tools)
@@ -25,7 +25,7 @@ Drop your resume in a folder, run Claude Code, and jobbi finds matching jobs, sc
 
 - [Claude Code](https://claude.ai/code) (CLI)
 - A LaTeX distribution: [TeX Live](https://tug.org/texlive/), [MacTeX](https://tug.org/mactex/), or [Tectonic](https://tectonic-typesetting.github.io/)
-- Your resume as a PDF
+- Your resume (PDF, Word, LaTeX, Markdown, or plain text)
 
 ---
 
@@ -37,14 +37,14 @@ git clone https://github.com/nabizadeh/jobbi.git
 cd jobbi
 
 # 2. Drop your resume into the resumes/ folder
-cp /path/to/YourResume.pdf resumes/
+cp /path/to/YourResume.pdf resumes/   # or .txt, .md, .docx, .tex
 
 # 3. Run Claude Code
 claude
 ```
 
 On first run, jobbi will:
-- Detect your resume PDF(s)
+- Detect your resume file(s)
 - Extract your profile automatically
 - Ask you only for anything it couldn't find
 - Save a `profile.md` so setup never runs again
@@ -63,7 +63,7 @@ jobbi/
 │
 ├── resumes/                           # Drop your resume(s) here
 │   ├── DROP_YOUR_RESUME_HERE.txt      # Placeholder — do not delete
-│   └── YourResume.pdf                 # Your resume (gitignored)
+│   └── YourResume.pdf                 # Your resume — any supported format (gitignored)
 │
 └── results/                           # All search output (gitignored)
     └── 2026-05-09/                    # One folder per day (or _2, _3 for multiple runs)
@@ -92,8 +92,9 @@ This means Claude Code will run those commands without interrupting you for conf
 | `.docx` / `.doc` | Microsoft Word — requires `pandoc` |
 | `.odt` | OpenDocument (LibreOffice) — requires `pandoc` |
 | `.tex` | LaTeX source — read directly, no conversion needed |
+| `.md` / `.txt` | Plain text / Markdown — read directly, no conversion needed |
 
-If you provide both a PDF and a Word/LaTeX version of the same resume, the PDF is used as the visual formatting reference. All files contribute to content extraction.
+If you provide both a PDF and a plain-text version of the same resume, the PDF is used as the visual formatting reference. All files contribute to content extraction.
 
 ## Multiple resumes
 
@@ -110,7 +111,7 @@ Delete `profile.md` and run Claude Code again. jobbi will re-read your resumes a
 ## What jobbi will NOT do
 
 - Activate LinkedIn Premium or make any purchases
-- Overwrite your original resume PDFs
+- Overwrite your original resume files
 - Invent experience, publications, or skills not in your resume
 - Use unverified or unofficial job sources — secondary sources (Indeed, Glassdoor, Built In, ZipRecruiter, etc.) are cross-referenced against the primary listing before being accepted
 

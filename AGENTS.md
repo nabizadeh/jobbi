@@ -19,26 +19,30 @@ If `profile.md` DOES NOT EXIST:
 =====================================
 SETUP STEP 1 — DETECT RESUME(S)
 =====================================
-Supported resume formats: .pdf, .docx, .doc, .odt, .tex
+Supported resume formats: .pdf, .docx, .doc, .odt, .tex, .md, .txt
 Scan the `resumes/` subfolder for files with any of these extensions.
 Ignore `DROP_YOUR_RESUME_HERE.txt` and any other non-resume files.
 
 If NO supported resume files are found in `resumes/`:
 - Print a clear message:
   "No resume found. Please place your resume file(s) in the resumes/ folder and run again.
-   Supported formats: .pdf, .docx, .doc, .odt, .tex"
+   Supported formats: .pdf, .docx, .doc, .odt, .tex, .md, .txt"
 - Stop. Do not continue.
 
 If ONE OR MORE supported files are found:
 - List them to the user.
-- For each file, check whether a cached plain-text version already exists at
-  resumes/<filename>.txt (e.g. resumes/MyResume.pdf → resumes/MyResume.txt).
-  - If the .txt cache EXISTS: read it directly — skip extraction.
-  - If the .txt cache DOES NOT EXIST: extract content using the appropriate method,
-    then immediately write the extracted text to resumes/<filename>.txt for future runs:
-      .pdf  → pdftotext (preferred); fall back to reading with available PDF tool
-      .docx / .doc / .odt → pandoc -t plain (if pandoc unavailable, report and skip that file)
-      .tex  → read directly as plain text
+- When scanning for .txt and .md files, skip any file whose basename (filename without
+  extension) matches the basename of a PDF, DOCX, DOC, or ODT file also found in resumes/ —
+  it is an auto-generated text cache, not a separate resume.
+- For each remaining file:
+  - .tex / .md / .txt → read directly as plain text — no cache check or cache write needed.
+  - .pdf / .docx / .doc / .odt → check whether a cached plain-text version already exists at
+    resumes/<basename>.txt (e.g. resumes/MyResume.pdf → resumes/MyResume.txt).
+    - If the .txt cache EXISTS: read it directly — skip extraction.
+    - If the .txt cache DOES NOT EXIST: extract content using the appropriate method,
+      then immediately write the extracted text to resumes/<basename>.txt for future runs:
+        .pdf  → pdftotext (preferred); fall back to reading with available PDF tool
+        .docx / .doc / .odt → pandoc -t plain (if pandoc unavailable, report and skip that file)
 - If a PDF and a non-PDF version of the same resume exist, flag the PDF as the visual
   formatting reference (regardless of which was cached first).
 - Treat all successfully extracted files as the candidate's resume library.
@@ -176,7 +180,7 @@ ORCHESTRATOR PHASE
 You are the orchestrator. Your job is to search, evaluate, and coordinate — not to generate
 resumes. Resume generation is fully delegated to subagents.
 
-Keep your context lean: do not read full resume PDFs or generate any LaTeX here.
+Keep your context lean: do not read full resume files or generate any LaTeX here.
 Your inputs are profile.md and job pages. Your outputs are job folders and subagent launches.
 
 =====================================
@@ -360,7 +364,7 @@ You receive a job folder path and a working directory path. Everything else you 
 
 Do NOT search for jobs.
 Do NOT update job_tracking.csv.
-Do NOT touch any files outside your assigned job folder and the source resume PDFs.
+Do NOT touch any files outside your assigned job folder and the source resume files.
 
 =====================================
 SUBAGENT STEP 1 — LOAD INPUTS
@@ -369,12 +373,13 @@ Read the following from disk:
 - profile.md (from working directory)
 - job_details.txt (from your job folder)
 - All resume files listed in RESUME_FILES in profile.md:
-  For each file, check for a cached plain-text version at resumes/<filename>.txt first.
-  - If the .txt cache EXISTS: read it directly — no extraction needed.
-  - If NOT: extract using the appropriate method:
-      .pdf  → pdftotext; fall back to available PDF tool
-      .docx / .doc / .odt → pandoc -t plain
-      .tex  → read directly as plain text
+  For each file:
+  - .tex / .md / .txt → read directly as plain text — no cache check or cache write needed.
+  - .pdf / .docx / .doc / .odt → check for a cached plain-text version at resumes/<basename>.txt first.
+    - If the .txt cache EXISTS: read it directly — no extraction needed.
+    - If NOT: extract using the appropriate method:
+        .pdf  → pdftotext; fall back to available PDF tool
+        .docx / .doc / .odt → pandoc -t plain
 
 Do not ask for any additional input. Everything you need is in these files.
 
@@ -386,7 +391,7 @@ with the job description.
 
 Visual formatting reference:
 - If a .pdf is available, use it as the visual style reference for LaTeX output.
-- If only .docx / .doc / .odt / .tex files are available, generate LaTeX using the
+- If only .docx / .doc / .odt / .tex / .md / .txt files are available, generate LaTeX using the
   built-in formatting rules in SUBAGENT STEP 4 — no visual reference needed.
 
 Note which resume was selected and which file (if any) served as visual reference —
@@ -507,7 +512,7 @@ Revision workflow:
    - Search results/ subfolders and any root-level job folders by company/role name.
    - If ambiguous, list the matching folders and ask the user to confirm.
 2. Read the existing <CandidateName>_Resume.tex from that folder.
-   Do NOT read the source resume PDF — the .tex file is the working document.
+   Do NOT read the source resume files — the .tex file is the working document.
 3. Make ONLY the specific changes the user requested.
    - Do not rewrite sections the user did not mention.
    - Do not re-tailor or re-score for the job.
@@ -523,7 +528,7 @@ Revision workflow:
 
 Hard rules for revision mode:
 - NEVER regenerate the .tex from scratch unless the user explicitly asks for it.
-- NEVER overwrite the source resume PDFs in resumes/.
+- NEVER overwrite the source resume files in resumes/.
 - NEVER modify job_tracking.csv or job_details.txt during a revision.
 - If the user asks for a change that would require fabricating experience,
   refuse and explain why, then suggest a truthful alternative.
@@ -533,7 +538,7 @@ CORE RULES (BOTH AGENTS)
 =====================================
 - NEVER activate LinkedIn Premium.
 - NEVER initiate any payment, subscription, upgrade, or purchase.
-- NEVER overwrite any source resume PDF.
+- NEVER overwrite any source resume file in resumes/.
 - ALWAYS work within the current folder and its subfolders only.
 - Do NOT ask for approval for local file operations, LaTeX compilation, or folder creation.
 - If a LaTeX build fails, fix and retry automatically without prompting the user.
