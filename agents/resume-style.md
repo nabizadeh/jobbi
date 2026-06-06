@@ -5,12 +5,13 @@
 # for your market, preferences, or local hiring norms without touching any
 # other files.
 #
-# Common customizations:
-#   - Add a photo (required in some countries, e.g. Denmark, Germany)
-#   - Change section order (e.g. Education before Work Experience for recent grads)
-#   - Adjust font size, margins, or spacing
-#   - Add or remove sections (e.g. Languages, Certifications, Volunteer Work)
-#   - Change date format or contact line style
+# HOW TO CUSTOMIZE:
+# Edit the instructions below. The subagent reads this file and generates
+# LaTeX accordingly. You do not need to write LaTeX yourself — just describe
+# what you want in plain language and the subagent will implement it.
+#
+# See the CUSTOMIZATION EXAMPLES section at the bottom for ready-to-use
+# recipes for common markets and preferences.
 
 =====================================
 SUBAGENT STEP 4 — GENERATE LATEX
@@ -52,3 +53,75 @@ Bullets:
 
 Page count: read RESUME_PAGE_LIMIT from profile.md and target exactly that many pages.
 Do not exceed it. Do not fall more than half a page short of it.
+
+=====================================
+CUSTOMIZATION EXAMPLES
+=====================================
+The recipes below are NOT active. To use one, copy the relevant instructions
+into the sections above, replacing the defaults.
+
+─────────────────────────────────────
+RECIPE 1: Photo in header
+(Required in Denmark, Germany, and many other European markets)
+─────────────────────────────────────
+Replace the Header instructions above with:
+
+  Header:
+  - Add the graphicx package to the document preamble.
+  - Use a two-column layout for the header only:
+      Left column (75% of text width): candidate name (large, bold, left-aligned)
+        and contact line below it (items separated by vertical bars).
+      Right column (20% of text width): candidate photo, right-aligned.
+  - Include the photo with \includegraphics[width=2.8cm]{photo.jpg}.
+    The user must place a file named photo.jpg in the job output folder
+    before compilation. If photo.jpg is not found, omit the photo and
+    fall back to the standard centered header.
+  - Use a minipage environment for each column; separate with \hfill.
+  - Compact, tight spacing below the header before the first section rule.
+
+─────────────────────────────────────
+RECIPE 2: Education before Work Experience
+(Common for recent graduates or academic CVs)
+─────────────────────────────────────
+Replace the Sections order above with:
+
+  Sections:
+  - Use EXACTLY this order, every time:
+      1. Header (name + contact — not a titled section)
+      2. PROFESSIONAL SUMMARY
+      3. EDUCATION
+      4. WORK EXPERIENCE
+      5. TECHNICAL SKILLS
+      6. SELECTED PUBLICATIONS (omit only if the source resume contains no publications)
+
+─────────────────────────────────────
+RECIPE 3: Add a Languages section
+(Common in Europe and international job markets)
+─────────────────────────────────────
+Add to the Sections order (insert after TECHNICAL SKILLS):
+
+      6. LANGUAGES — list each language and proficiency level
+         (e.g. English: Native, Danish: Conversational, German: Basic)
+         Omit this section if no language information is present in the source resume.
+      7. SELECTED PUBLICATIONS (if applicable)
+
+─────────────────────────────────────
+RECIPE 4: Larger margins / more breathing room
+─────────────────────────────────────
+Add to Document requirements:
+
+  - Use geometry package with margins: top=1in, bottom=1in, left=0.85in, right=0.85in
+    (default is tighter; adjust as needed)
+
+─────────────────────────────────────
+RECIPE 5: Smaller font for more content
+(When content is dense and you need to fit more on fewer pages)
+─────────────────────────────────────
+Replace "Class: article, 11pt" with "Class: article, 10pt"
+
+─────────────────────────────────────
+COMBINING RECIPES
+─────────────────────────────────────
+Recipes can be combined. For example, a Danish CV with a photo and a
+Languages section: apply Recipe 1 (photo header) and Recipe 3 (Languages),
+leave everything else at the defaults.
