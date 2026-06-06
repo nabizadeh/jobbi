@@ -19,8 +19,8 @@ LOCATION_PRIORITY_1: California
 LOCATION_PRIORITY_2: Boston / Massachusetts
 LOCATION_PRIORITY_3: Remote US
 SENIORITY_TARGET: Scientist / Senior Scientist
-COMPANY_BLOCKLIST:
-COMPANY_PRIORITY: Genentech, Recursion, insitro
+COMPANY_BLOCKLIST: Acme Corp, Initech
+COMPANY_PRIORITY: Google, Amazon, Microsoft
 
 PRIMARY_DOMAINS: RNA Biology, Immunology, Molecular Biology, Translational Research
 KEY_TECHNICAL_SKILLS: mRNA design, LNP formulation, CRISPR, flow cytometry, single-cell RNA-seq, NGS, in vivo mouse models

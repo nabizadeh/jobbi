@@ -97,13 +97,13 @@ Optional fields (user may answer "skip" to leave blank):
   COMPANY_BLOCKLIST:
     Ask: "Any companies to never show? (comma-separated, or press Enter to skip):"
     If skipped or empty → leave blank.
-    Example: "Amazon, Meta, previous employer name"
+    Example: "Acme Corp, Initech, previous employer name"
 
   COMPANY_PRIORITY:
     Ask: "Any companies you're especially interested in? They'll get a score boost.
     (comma-separated, or press Enter to skip):"
     If skipped or empty → leave blank.
-    Example: "Genentech, Recursion, insitro"
+    Example: "Google, Amazon, Microsoft"
 
 Search preference fields — ask these explicitly with the defaults shown:
 
