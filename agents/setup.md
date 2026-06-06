@@ -80,84 +80,106 @@ RESUME_FILES: {{RESUME_FILES}}
 =====================================
 SETUP STEP 3 — ASK USER FOR MISSING BLANKS
 =====================================
-After attempting auto-fill from the resume(s):
+Ask ONE field at a time. Wait for the user's response before asking the next.
+Do NOT list multiple questions at once. Do NOT collect all answers in one prompt.
+Do NOT proceed to job searching until all required blanks are resolved.
 
-- If ALL blanks are filled: skip this step.
-- If ANY blanks remain MISSING:
-  - Ask ONE field at a time. Wait for the user's response before asking the next.
-  - Do NOT list all missing fields at once. Do NOT collect all answers in one prompt.
-  - Do NOT proceed to job searching until all required blanks are resolved.
+Use AskUserQuestion for every question that has fixed or resume-derived options.
+Use plain text only for fields that are truly open-ended (name, email, location).
 
-Required fields (must be filled before continuing):
-  CANDIDATE_NAME, CANDIDATE_EMAIL, TARGET_ROLES, PRIMARY_DOMAINS, LOCATION_PRIORITY_1
+─────────────────────────────────────
+PART A — MISSING REQUIRED/OPTIONAL FIELDS
+─────────────────────────────────────
+Only ask these if they were not auto-filled from the resume.
 
-Optional fields (user may answer "skip" to leave blank):
-  CANDIDATE_PHONE, CANDIDATE_LINKEDIN, LOCATION_PRIORITY_2, LOCATION_PRIORITY_3
+Plain text fields (ask as a simple typed question):
+  - CANDIDATE_NAME (required)
+  - CANDIDATE_EMAIL (required)
+  - CANDIDATE_PHONE (optional — user may type "skip")
+  - CANDIDATE_LINKEDIN (optional — user may type "skip")
+  - LOCATION_PRIORITY_1 (required — e.g. "Boston, MA" or "Remote")
+  - LOCATION_PRIORITY_2 (optional — user may type "skip")
+  - LOCATION_PRIORITY_3 (optional — user may type "skip")
 
-Ask ALL of the following fields one at a time, in this exact order.
-Wait for the user's response after each before moving to the next.
-Do NOT show multiple questions at once.
+USE ASKUSERQUESTION — TARGET_ROLES (required if MISSING):
+  Question: "Which roles are you targeting? Select all that apply."
+  multiSelect: true
+  Options: extract up to 4 job titles seen in the resume
+    (current role title, most recent previous role titles).
+    Label each with the exact title from the resume.
+  If the user selects "Other": prompt them to type the additional role(s).
+  Save all selected + typed values as a comma-separated list.
 
-For questions marked USE ASKUSERQUESTION: present them using the AskUserQuestion tool
-so the user gets an interactive selectable list (arrow keys + Enter).
-For open-ended questions: ask as plain text.
+USE ASKUSERQUESTION — SENIORITY_TARGET (if MISSING):
+  Question: "What seniority level are you targeting?"
+  Options:
+    - "Mid-level"         → value: Mid-level
+    - "Senior"            → value: Senior  (Recommended)
+    - "Principal / Staff" → value: Principal / Staff
+    - "Director / VP"     → value: Director / VP
 
-Company preference fields (plain text — open-ended answers):
+─────────────────────────────────────
+PART B — COMPANY PREFERENCES (always ask these)
+─────────────────────────────────────
 
-  1. COMPANY_BLOCKLIST:
-     Ask: "Any companies to never show in results?
-     Enter a comma-separated list, or press Enter to skip:"
-     If skipped or empty → leave blank.
+USE ASKUSERQUESTION — COMPANY_BLOCKLIST:
+  Question: "Any companies to exclude from results? Select any you've worked at
+  (or choose Other to type additional ones)."
+  multiSelect: true
+  Options: extract up to 4 employer names seen in the resume
+    (current employer + most recent previous employers).
+    Label each with the exact company name from the resume.
+  If none apply or user skips: leave COMPANY_BLOCKLIST blank.
 
-  2. COMPANY_PRIORITY:
-     Ask: "Any companies you're especially interested in? (they'll get a score boost)
-     Enter a comma-separated list, or press Enter to skip:"
-     If skipped or empty → leave blank.
+COMPANY_PRIORITY (plain text — can't extract dream companies from a resume):
+  Ask: "Any companies you're especially interested in? They'll get a score boost.
+  Enter a comma-separated list, or press Enter to skip:"
+  If skipped or empty → leave blank.
 
-Search preference fields:
+─────────────────────────────────────
+PART C — SEARCH PREFERENCES (always ask these)
+─────────────────────────────────────
 
-  3. JOB_RECENCY_DAYS — USE ASKUSERQUESTION:
-     Question: "How recent should job postings be?"
-     Options:
-       - "Past 24 hours"         → value: 1
-       - "Past 48 hours"         → value: 2  (Recommended)
-       - "Past week"             → value: 7
-       - "Past 2 weeks"          → value: 14
+USE ASKUSERQUESTION — JOB_RECENCY_DAYS:
+  Question: "How recent should job postings be?"
+  Options:
+    - "Past 24 hours"  → value: 1
+    - "Past 48 hours"  → value: 2  (Recommended)
+    - "Past week"      → value: 7
+    - "Past 2 weeks"   → value: 14
 
-  4. MIN_JOBS_PER_RUN — USE ASKUSERQUESTION:
-     Question: "Minimum number of jobs to find per run?"
-     Options:
-       - "3 jobs"   → value: 3
-       - "5 jobs"   → value: 5  (Recommended)
-       - "10 jobs"  → value: 10
-       - "15 jobs"  → value: 15
+USE ASKUSERQUESTION — MIN_JOBS_PER_RUN:
+  Question: "Minimum number of jobs to find per run?"
+  Options:
+    - "3 jobs"   → value: 3
+    - "5 jobs"   → value: 5  (Recommended)
+    - "10 jobs"  → value: 10
+    - "15 jobs"  → value: 15
 
-  5. RESUME_PAGE_LIMIT — USE ASKUSERQUESTION:
-     Question: "How many pages should the tailored resume be?"
-     Options:
-       - "1 page"   → value: 1
-       - "2 pages"  → value: 2  (Recommended)
-       - "3 pages"  → value: 3
+USE ASKUSERQUESTION — RESUME_PAGE_LIMIT:
+  Question: "How many pages should the tailored resume be?"
+  Options:
+    - "1 page"   → value: 1
+    - "2 pages"  → value: 2  (Recommended)
+    - "3 pages"  → value: 3
 
-  6. COVER_LETTER — USE ASKUSERQUESTION:
-     Question: "Generate a cover letter for each job alongside the resume?"
-     Options:
-       - "No — resume only"      → value: no   (Recommended)
-       - "Yes — include a cover letter" → value: yes
-     Note: you can place writing_sample.txt in resumes/ to help jobbi match your tone.
+USE ASKUSERQUESTION — COVER_LETTER:
+  Question: "Generate a cover letter for each job alongside the resume?"
+  Options:
+    - "No — resume only"           → value: no   (Recommended)
+    - "Yes — include cover letter" → value: yes
+  Note: place writing_sample.txt in resumes/ to help jobbi match your writing tone.
 
-  7. JOB_PLATFORMS — USE ASKUSERQUESTION with multiSelect: true:
-     Question: "Which job boards should jobbi search? Select all that apply."
-     Options (select multiple):
-       - "LinkedIn"      → value: linkedin
-       - "Indeed"        → value: indeed
-       - "Glassdoor"     → value: glassdoor
-       - "ZipRecruiter"  → value: zip_recruiter
-       - "Google Jobs"   → value: google
-     Default if none selected or user skips: linkedin, indeed, glassdoor, zip_recruiter, google
-     Note: Glassdoor has few listings in some markets (e.g. Denmark) — deselect it if that's your case.
-     Note: bayt (Middle East), naukri (India), bdjobs (Bangladesh) can be added manually to
-     profile.md if needed — they exceed the 4-option limit here.
+USE ASKUSERQUESTION — JOB_PLATFORMS (multiSelect: true):
+  Question: "Which job boards should jobbi search? Select all that apply."
+  Options:
+    - "LinkedIn"      → value: linkedin
+    - "Indeed"        → value: indeed
+    - "Glassdoor"     → value: glassdoor
+    - "ZipRecruiter"  → value: zip_recruiter
+  Default if none selected: linkedin, indeed, glassdoor, zip_recruiter
+  Note: Google Jobs, Bayt, Naukri, BDJobs can be added manually to JOB_PLATFORMS
+  in profile.md after setup if needed.
 
 =====================================
 SETUP STEP 4 — SAVE profile.md
