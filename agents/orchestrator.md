@@ -193,8 +193,10 @@ Instructions:
 1. Read profile.md from the working directory.
 2. Read job_details.txt from the job folder.
 3. Read all resume files listed in RESUME_FILES from profile.md.
-4. Read agents/core-rules.md, agents/resume-tailor.md, agents/resume-style.md,
-   and agents/cover-letter.md from the working directory and follow them exactly.
+4. Read agents/core-rules.md, agents/resume-tailor.md, and agents/resume-style.md
+   from the working directory and follow them exactly.
+   (agents/resume-tailor.md step 8 will read agents/cover-letter.md conditionally
+   based on the COVER_LETTER field in profile.md)
 5. Write all output files into the job folder only.
 ---
 

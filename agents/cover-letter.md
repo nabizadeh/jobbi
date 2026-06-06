@@ -1,7 +1,11 @@
 =====================================
 SUBAGENT STEP 8 — GENERATE COVER LETTER
 =====================================
-Generate a cover letter for this specific job. Output: cover_letter.md in the job folder.
+First, check COVER_LETTER in profile.md.
+If it is NOT set to "yes", stop immediately — do not generate a cover letter.
+
+If it IS set to "yes": generate a cover letter for this specific job.
+Output: cover_letter.md in the job folder.
 
 =====================================
 STEP 8a — CHECK FOR WRITING SAMPLE
