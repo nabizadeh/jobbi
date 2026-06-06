@@ -6,6 +6,7 @@ and survives HTML regeneration as long as the browser data is not cleared.
 """
 
 import csv
+import html as html_lib
 import json
 import os
 import subprocess
@@ -65,6 +66,20 @@ body {
 }
 .logo      { font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
 .generated { color: var(--subtext); font-size: 12px; }
+
+/* ── Profile bar ── */
+.profile-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  padding: 10px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.pf-item  { display: inline-flex; gap: 4px; align-items: baseline; }
+.pf-label { color: var(--subtext); }
+.pf-value { color: var(--text); font-weight: 500; }
 
 /* ── Stats bar ── */
 .stats {
@@ -254,6 +269,8 @@ td { padding: 10px 14px; vertical-align: middle; }
   <span class="logo">jobbi</span>
   <span class="generated">updated __GENERATED_AT__</span>
 </div>
+
+__PROFILE_BAR__
 
 <div class="stats" id="stats"></div>
 
@@ -448,13 +465,82 @@ def read_jobs():
         return [dict(r) for r in csv.DictReader(f)]
 
 
-def build_html(jobs):
+def read_profile():
+    p = Path("profile.md")
+    if not p.exists():
+        return {}
+    profile = {}
+    for line in p.read_text(encoding="utf-8").splitlines():
+        if ":" in line and not line.strip().startswith("#"):
+            key, _, val = line.partition(":")
+            profile[key.strip()] = val.strip()
+    return profile
+
+
+def format_recency(days_str):
+    try:
+        d = int(days_str)
+        if d == 1:   return "24 hours"
+        if d == 2:   return "48 hours"
+        if d == 7:   return "1 week"
+        if d == 14:  return "2 weeks"
+        return f"{d} days"
+    except (ValueError, TypeError):
+        return days_str
+
+
+def build_profile_bar(profile):
+    if not profile:
+        return ""
+
+    def esc(v):
+        return html_lib.escape(v)
+
+    def field(label, val):
+        if not val:
+            return None
+        return (f'<span class="pf-item">'
+                f'<span class="pf-label">{label}:</span>'
+                f'<span class="pf-value">{esc(val)}</span>'
+                f'</span>')
+
+    items = []
+
+    # Roles
+    items.append(field("Roles", profile.get("TARGET_ROLES", "")))
+
+    # Locations — combine all three into one field
+    locs = [profile.get(k, "").strip() for k in
+            ("LOCATION_PRIORITY_1", "LOCATION_PRIORITY_2", "LOCATION_PRIORITY_3")]
+    locs = [l for l in locs if l]
+    if locs:
+        items.append(field("Locations", " · ".join(locs)))
+
+    # Platforms
+    items.append(field("Platforms", profile.get("JOB_PLATFORMS", "")))
+
+    # Recency
+    recency_raw = profile.get("JOB_RECENCY_DAYS", "").strip()
+    if recency_raw:
+        items.append(field("Recency", format_recency(recency_raw)))
+
+    # Priority companies only (not blocklist — too sensitive for screenshots)
+    items.append(field("Priority", profile.get("COMPANY_PRIORITY", "")))
+
+    items = [i for i in items if i]
+    if not items:
+        return ""
+    return f'<div class="profile-bar">{"".join(items)}</div>'
+
+
+def build_html(jobs, profile):
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
     jobs_json = json.dumps(jobs, ensure_ascii=False, indent=2)
     return (
         HTML
         .replace("__JOBS_JSON__", jobs_json)
         .replace("__GENERATED_AT__", generated_at)
+        .replace("__PROFILE_BAR__", build_profile_bar(profile))
     )
 
 
@@ -469,8 +555,9 @@ def open_browser(path):
 
 
 def main():
-    jobs = read_jobs()
-    html = build_html(jobs)
+    jobs    = read_jobs()
+    profile = read_profile()
+    html    = build_html(jobs, profile)
     Path(OUTPUT_PATH).write_text(html, encoding="utf-8")
     n = len(jobs)
     print(f"Dashboard → {OUTPUT_PATH}  ({n} job{'s' if n != 1 else ''})")
