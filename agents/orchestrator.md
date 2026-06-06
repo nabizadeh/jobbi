@@ -154,8 +154,8 @@ ORCHESTRATOR STEP 6 — LAUNCH SUBAGENTS
 After the CSV is written, launch one subagent per accepted job.
 Launch ALL subagents in parallel — do not wait for one to finish before starting the next.
 
-Model: use the latest Claude Sonnet model available in your environment for all resume
-tailoring subagents (e.g. claude-sonnet-4-6 or newer).
+Model: use claude-sonnet-4-6 for all resume tailoring subagents.
+(Last updated: 2026-06-06. Update this model ID when a newer Sonnet version is available.)
 Resume tailoring requires nuanced rewriting — do not downgrade to a smaller model here.
 If you (the orchestrator) were started with a cheaper model, the subagents will still
 use Sonnet to ensure resume quality.
