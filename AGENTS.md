@@ -285,7 +285,7 @@ Write job_details.txt inside each job subfolder with:
 - Match Score
 - Source URL (the job board or search result where it was found)
 - Verified Source Page (the company/ATS page confirmed open in Step 2)
-- Verified Apply Link (direct apply button URL from the source page)
+- Apply Link (direct apply button URL from the source page)
 - Full job description text
 - Match rationale (which profile fields drove the score)
 
@@ -295,7 +295,7 @@ Note: job_tracking.csv stays at the repo root — it is cumulative across all ru
 ORCHESTRATOR STEP 5 — UPDATE CSV
 =====================================
 File: job_tracking.csv
-Columns: Job Title, Company, Location, Date Posted, Match Score, Verified Apply Link, Source URL
+Columns: Job Title, Company, Location, Date Posted, Match Score, Apply Link, Source
 
 Date Posted in the CSV must be an absolute date in YYYY-MM-DD format — same rule as above.
 
