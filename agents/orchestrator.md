@@ -59,9 +59,21 @@ Default priority if JOB_PLATFORMS not set: linkedin > indeed > glassdoor > zip_r
 Proceed to STEP 2 with the deduplicated list.
 
 =====================================
-ORCHESTRATOR STEP 2 — ACTIVE-CANDIDACY VERIFICATION
+ORCHESTRATOR STEP 2 — BLOCKLIST FILTER
 =====================================
-For EVERY candidate job before scoring, perform ALL of the following checks:
+Before verification, reject any job whose company name matches an entry in
+COMPANY_BLOCKLIST from profile.md.
+
+Matching is case-insensitive and partial — "Amazon" blocks "Amazon Web Services",
+"Amazon.com", etc. If COMPANY_BLOCKLIST is empty or not set, skip this step.
+
+Log each blocked company as: "Skipped [Company] — on blocklist."
+Then proceed to STEP 2b with the remaining list.
+
+=====================================
+ORCHESTRATOR STEP 2b — ACTIVE-CANDIDACY VERIFICATION
+=====================================
+For EVERY remaining candidate job before scoring, perform ALL of the following checks:
 
 1. Fetch the job's ORIGINAL SOURCE PAGE (company career page or ATS link — e.g. greenhouse.io,
    lever.co, workday, myworkdayjobs, oracle cloud, company careers subdomain).
@@ -96,7 +108,11 @@ Score each verified job 0–100:
 - Seniority fit: 20%
 - Tools/methods fit: 15%
 
-Reject scores < 70.
+Priority boost: if the job's company matches any entry in COMPANY_PRIORITY from profile.md,
+add 10 points to the raw score (cap at 100). Matching is case-insensitive and partial.
+If COMPANY_PRIORITY is empty or not set, skip this step.
+
+Reject scores < 70 (applied after the priority boost).
 
 Apply location priority as a tie-breaker:
 1. LOCATION_PRIORITY_1 from profile.md (highest)

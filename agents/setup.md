@@ -58,6 +58,8 @@ LOCATION_PRIORITY_1: {{LOCATION_PRIORITY_1}}
 LOCATION_PRIORITY_2: {{LOCATION_PRIORITY_2}}
 LOCATION_PRIORITY_3: {{LOCATION_PRIORITY_3}}
 SENIORITY_TARGET: {{SENIORITY_TARGET}}
+COMPANY_BLOCKLIST: {{COMPANY_BLOCKLIST}}
+COMPANY_PRIORITY: {{COMPANY_PRIORITY}}
 
 --- DOMAIN & SKILLS ---
 PRIMARY_DOMAINS: {{PRIMARY_DOMAINS}}
@@ -89,7 +91,19 @@ Required fields (must be filled before continuing):
   CANDIDATE_NAME, CANDIDATE_EMAIL, TARGET_ROLES, PRIMARY_DOMAINS, LOCATION_PRIORITY_1
 
 Optional fields (user may answer "skip" to leave blank):
-  CANDIDATE_PHONE, CANDIDATE_LINKEDIN, LOCATION_PRIORITY_2, LOCATION_PRIORITY_3
+  CANDIDATE_PHONE, CANDIDATE_LINKEDIN, LOCATION_PRIORITY_2, LOCATION_PRIORITY_3,
+  COMPANY_BLOCKLIST, COMPANY_PRIORITY
+
+  COMPANY_BLOCKLIST:
+    Ask: "Any companies to never show? (comma-separated, or press Enter to skip):"
+    If skipped or empty → leave blank.
+    Example: "Amazon, Meta, previous employer name"
+
+  COMPANY_PRIORITY:
+    Ask: "Any companies you're especially interested in? They'll get a score boost.
+    (comma-separated, or press Enter to skip):"
+    If skipped or empty → leave blank.
+    Example: "Genentech, Recursion, insitro"
 
 Search preference fields — ask these explicitly with the defaults shown:
 
@@ -150,6 +164,8 @@ LOCATION_PRIORITY_1: <value>
 LOCATION_PRIORITY_2: <value>
 LOCATION_PRIORITY_3: <value>
 SENIORITY_TARGET: <value>
+COMPANY_BLOCKLIST: <value>
+COMPANY_PRIORITY: <value>
 
 PRIMARY_DOMAINS: <value>
 KEY_TECHNICAL_SKILLS: <value>
