@@ -91,8 +91,9 @@ Required fields (must be filled before continuing):
   CANDIDATE_NAME, CANDIDATE_EMAIL, TARGET_ROLES, PRIMARY_DOMAINS, LOCATION_PRIORITY_1
 
 Optional fields (user may answer "skip" to leave blank):
-  CANDIDATE_PHONE, CANDIDATE_LINKEDIN, LOCATION_PRIORITY_2, LOCATION_PRIORITY_3,
-  COMPANY_BLOCKLIST, COMPANY_PRIORITY
+  CANDIDATE_PHONE, CANDIDATE_LINKEDIN, LOCATION_PRIORITY_2, LOCATION_PRIORITY_3
+
+Company preference fields — always ask these explicitly (no default, skippable):
 
   COMPANY_BLOCKLIST:
     Ask: "Any companies to never show? (comma-separated, or press Enter to skip):"
