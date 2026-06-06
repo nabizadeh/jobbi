@@ -73,16 +73,19 @@ Replace the Header instructions above with:
         and contact line below it (items separated by vertical bars).
       Right column (20% of text width): candidate photo, right-aligned.
   - Photo handling:
-      1. Look for resumes/photo.jpg in the working directory.
-      2. If found: copy it to the job folder, then include it in LaTeX
-         with \includegraphics[width=2.8cm]{photo.jpg} (relative path works
-         because the .tex file is compiled from the job folder).
-      3. If NOT found: omit the photo column and fall back to the standard
-         centered header. Do NOT fail or stop — just skip the photo.
+      1. Scan the resumes/ folder in the working directory for any image file
+         with extension .jpg, .jpeg, or .png (any filename is accepted).
+      2. If one is found: copy it to the job folder as photo.jpg, then include
+         it in LaTeX with \includegraphics[width=2.8cm]{photo.jpg} (relative
+         path works because the .tex file is compiled from the job folder).
+      3. If multiple image files exist in resumes/: prefer one named photo.*
+         if present; otherwise use the first one found alphabetically.
+      4. If NO image file is found: omit the photo column and fall back to the
+         standard centered header. Do NOT fail or stop — just skip the photo.
   - Use a minipage environment for each column; separate with \hfill.
   - Compact, tight spacing below the header before the first section rule.
-  - (The user places their photo once at resumes/photo.jpg — it is reused
-    automatically for every job application.)
+  - (The user places their photo once in resumes/ — it is reused automatically
+    for every job application, regardless of the filename.)
 
 ─────────────────────────────────────
 RECIPE 2: Education before Work Experience
