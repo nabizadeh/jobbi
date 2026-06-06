@@ -84,8 +84,8 @@ After attempting auto-fill from the resume(s):
 
 - If ALL blanks are filled: skip this step.
 - If ANY blanks remain MISSING:
-  - List only the missing fields clearly.
-  - Ask the user to provide values, one field at a time or as a group.
+  - Ask ONE field at a time. Wait for the user's response before asking the next.
+  - Do NOT list all missing fields at once. Do NOT collect all answers in one prompt.
   - Do NOT proceed to job searching until all required blanks are resolved.
 
 Required fields (must be filled before continuing):
@@ -94,55 +94,63 @@ Required fields (must be filled before continuing):
 Optional fields (user may answer "skip" to leave blank):
   CANDIDATE_PHONE, CANDIDATE_LINKEDIN, LOCATION_PRIORITY_2, LOCATION_PRIORITY_3
 
-Company preference fields — always ask these explicitly (no default, skippable):
+Ask ALL of the following fields one at a time, in this exact order.
+Wait for the user's response after each before moving to the next.
+Do NOT show multiple questions at once.
 
-  COMPANY_BLOCKLIST:
-    Ask: "Any companies to never show? (comma-separated, or press Enter to skip):"
-    If skipped or empty → leave blank.
-    Example: "Acme Corp, Initech, previous employer name"
+Company preference fields (skippable — press Enter to skip):
 
-  COMPANY_PRIORITY:
-    Ask: "Any companies you're especially interested in? They'll get a score boost.
-    (comma-separated, or press Enter to skip):"
-    If skipped or empty → leave blank.
-    Example: "Google, Amazon, Microsoft"
+  1. COMPANY_BLOCKLIST:
+     Ask: "Any companies to never show in results?
+     Enter a comma-separated list, or press Enter to skip:"
+     If skipped or empty → leave blank.
 
-Search preference fields — ask these explicitly with the defaults shown:
+  2. COMPANY_PRIORITY:
+     Ask: "Any companies you're especially interested in? (they'll get a score boost)
+     Enter a comma-separated list, or press Enter to skip:"
+     If skipped or empty → leave blank.
 
-  JOB_RECENCY_DAYS:
-    Ask: "How recent should job postings be?
-      1  = past 24 hours
-      2  = past 48 hours  (default)
-      7  = past week
-      14 = past 2 weeks
-    Press Enter to use the default (2):"
-    If user presses Enter or provides no input → use 2.
+Search preference fields (press Enter for the default):
 
-  MIN_JOBS_PER_RUN:
-    Ask: "Minimum number of jobs to find per run? (default: 5):"
-    If user presses Enter or provides no input → use 5.
-    Do NOT lower quality standards to meet this number.
+  3. JOB_RECENCY_DAYS:
+     Ask: "How recent should job postings be?
+       1  = past 24 hours
+       2  = past 48 hours  (default)
+       7  = past week
+       14 = past 2 weeks
+     Enter a number or press Enter for the default (2):"
+     If user presses Enter or provides no input → use 2.
 
-  RESUME_PAGE_LIMIT:
-    Ask: "How many pages should the tailored resume be? (default: 2):"
-    If user presses Enter or provides no input → use 2.
+  4. MIN_JOBS_PER_RUN:
+     Ask: "Minimum number of jobs to find per run?
+     Press Enter for the default (5):"
+     If user presses Enter or provides no input → use 5.
+     Do NOT lower quality standards to meet this number.
 
-  COVER_LETTER:
-    Ask: "Generate a cover letter for each job? (yes / no, default: no):"
-    If user presses Enter or provides no input → use no.
-    Note: place a file named writing_sample.txt or writing_sample.md in resumes/
-    to give jobbi a sample of your writing style (optional but recommended).
+  5. RESUME_PAGE_LIMIT:
+     Ask: "How many pages should the tailored resume be?
+     Press Enter for the default (2):"
+     If user presses Enter or provides no input → use 2.
 
-  JOB_PLATFORMS:
-    Ask: "Which job boards should jobbi search? Available platforms:
-      linkedin, indeed, glassdoor, zip_recruiter, google  (US/global)
-      bayt                                                 (Middle East)
-      naukri                                               (India)
-      bdjobs                                               (Bangladesh)
-    Enter a comma-separated list, or press Enter for the default:
-    (default: linkedin, indeed, glassdoor, zip_recruiter, google):"
-    If user presses Enter or provides no input → use: linkedin, indeed, glassdoor, zip_recruiter, google.
-    Tip: remove platforms that have few listings in your market (e.g. remove glassdoor for Denmark).
+  6. COVER_LETTER:
+     Ask: "Generate a cover letter for each job?
+       yes = generate a cover letter alongside the resume
+       no  = resume only (default)
+     Enter yes or no, or press Enter for the default (no):"
+     If user presses Enter or provides no input → use no.
+     Note: you can place writing_sample.txt in resumes/ to help jobbi match your tone.
+
+  7. JOB_PLATFORMS:
+     Ask: "Which job boards should jobbi search?
+     Available platforms:
+       linkedin, indeed, glassdoor, zip_recruiter, google  — US / global
+       bayt                                                 — Middle East
+       naukri                                               — India
+       bdjobs                                               — Bangladesh
+     Enter a comma-separated list, or press Enter for the default
+     (linkedin, indeed, glassdoor, zip_recruiter, google):"
+     If user presses Enter or provides no input → use: linkedin, indeed, glassdoor, zip_recruiter, google.
+     Tip: remove platforms with few listings in your market (e.g. remove glassdoor for Denmark).
 
 =====================================
 SETUP STEP 4 — SAVE profile.md
