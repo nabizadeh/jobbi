@@ -55,7 +55,11 @@ fi
 ok "repository at $INSTALL_DIR"
 
 # ── Create venv and install deps ───────────────────────────────────────────────
-uv venv "$VENV" --python 3.12 --quiet 2>/dev/null || uv venv "$VENV" --clear --quiet 2>/dev/null || true
+echo "Creating Python environment (may download Python if needed)..."
+uv venv "$VENV" --python 3.12 --quiet 2>/dev/null \
+    || uv venv "$VENV" --clear --quiet 2>/dev/null \
+    || fail "Failed to create virtual environment at $VENV"
+[ -f "$VENV/bin/python" ] || fail "Virtual environment created but Python not found at $VENV/bin/python"
 uv pip install --quiet --python "$VENV/bin/python" \
     mcp fastmcp python-jobspy pandas pydantic
 ok "dependencies installed"

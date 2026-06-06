@@ -60,13 +60,17 @@ After the script finishes, **restart Claude Code** for the MCP server to take ef
 git clone https://github.com/nabizadeh/jobbi.git
 cd jobbi
 
-# 2. Drop your resume into the resumes/ folder
+# 2. Install JobSpy MCP (one-time setup — see JobSpy MCP Setup section above)
+bash setup.sh
+# → restart Claude Code after this step
+
+# 3. Drop your resume into the resumes/ folder
 cp /path/to/YourResume.pdf resumes/   # or .txt, .md, .docx, .tex
 
-# 3. Run Claude Code
+# 4. Run Claude Code
 claude
 
-# 4. Paste this prompt to kick things off:
+# 5. Paste this prompt to kick things off:
 # "Start jobbi — read my resume, set up my profile, and search for matching jobs."
 ```
 
