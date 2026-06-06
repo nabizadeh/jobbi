@@ -98,7 +98,11 @@ Ask ALL of the following fields one at a time, in this exact order.
 Wait for the user's response after each before moving to the next.
 Do NOT show multiple questions at once.
 
-Company preference fields (skippable — press Enter to skip):
+For questions marked USE ASKUSERQUESTION: present them using the AskUserQuestion tool
+so the user gets an interactive selectable list (arrow keys + Enter).
+For open-ended questions: ask as plain text.
+
+Company preference fields (plain text — open-ended answers):
 
   1. COMPANY_BLOCKLIST:
      Ask: "Any companies to never show in results?
@@ -110,47 +114,50 @@ Company preference fields (skippable — press Enter to skip):
      Enter a comma-separated list, or press Enter to skip:"
      If skipped or empty → leave blank.
 
-Search preference fields (press Enter for the default):
+Search preference fields:
 
-  3. JOB_RECENCY_DAYS:
-     Ask: "How recent should job postings be?
-       1  = past 24 hours
-       2  = past 48 hours  (default)
-       7  = past week
-       14 = past 2 weeks
-     Enter a number or press Enter for the default (2):"
-     If user presses Enter or provides no input → use 2.
+  3. JOB_RECENCY_DAYS — USE ASKUSERQUESTION:
+     Question: "How recent should job postings be?"
+     Options:
+       - "Past 24 hours"         → value: 1
+       - "Past 48 hours"         → value: 2  (Recommended)
+       - "Past week"             → value: 7
+       - "Past 2 weeks"          → value: 14
 
-  4. MIN_JOBS_PER_RUN:
-     Ask: "Minimum number of jobs to find per run?
-     Press Enter for the default (5):"
-     If user presses Enter or provides no input → use 5.
-     Do NOT lower quality standards to meet this number.
+  4. MIN_JOBS_PER_RUN — USE ASKUSERQUESTION:
+     Question: "Minimum number of jobs to find per run?"
+     Options:
+       - "3 jobs"   → value: 3
+       - "5 jobs"   → value: 5  (Recommended)
+       - "10 jobs"  → value: 10
+       - "15 jobs"  → value: 15
 
-  5. RESUME_PAGE_LIMIT:
-     Ask: "How many pages should the tailored resume be?
-     Press Enter for the default (2):"
-     If user presses Enter or provides no input → use 2.
+  5. RESUME_PAGE_LIMIT — USE ASKUSERQUESTION:
+     Question: "How many pages should the tailored resume be?"
+     Options:
+       - "1 page"   → value: 1
+       - "2 pages"  → value: 2  (Recommended)
+       - "3 pages"  → value: 3
 
-  6. COVER_LETTER:
-     Ask: "Generate a cover letter for each job?
-       yes = generate a cover letter alongside the resume
-       no  = resume only (default)
-     Enter yes or no, or press Enter for the default (no):"
-     If user presses Enter or provides no input → use no.
+  6. COVER_LETTER — USE ASKUSERQUESTION:
+     Question: "Generate a cover letter for each job alongside the resume?"
+     Options:
+       - "No — resume only"      → value: no   (Recommended)
+       - "Yes — include a cover letter" → value: yes
      Note: you can place writing_sample.txt in resumes/ to help jobbi match your tone.
 
-  7. JOB_PLATFORMS:
-     Ask: "Which job boards should jobbi search?
-     Available platforms:
-       linkedin, indeed, glassdoor, zip_recruiter, google  — US / global
-       bayt                                                 — Middle East
-       naukri                                               — India
-       bdjobs                                               — Bangladesh
-     Enter a comma-separated list, or press Enter for the default
-     (linkedin, indeed, glassdoor, zip_recruiter, google):"
-     If user presses Enter or provides no input → use: linkedin, indeed, glassdoor, zip_recruiter, google.
-     Tip: remove platforms with few listings in your market (e.g. remove glassdoor for Denmark).
+  7. JOB_PLATFORMS — USE ASKUSERQUESTION with multiSelect: true:
+     Question: "Which job boards should jobbi search? Select all that apply."
+     Options (select multiple):
+       - "LinkedIn"      → value: linkedin
+       - "Indeed"        → value: indeed
+       - "Glassdoor"     → value: glassdoor
+       - "ZipRecruiter"  → value: zip_recruiter
+       - "Google Jobs"   → value: google
+     Default if none selected or user skips: linkedin, indeed, glassdoor, zip_recruiter, google
+     Note: Glassdoor has few listings in some markets (e.g. Denmark) — deselect it if that's your case.
+     Note: bayt (Middle East), naukri (India), bdjobs (Bangladesh) can be added manually to
+     profile.md if needed — they exceed the 4-option limit here.
 
 =====================================
 SETUP STEP 4 — SAVE profile.md
