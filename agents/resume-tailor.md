@@ -87,6 +87,40 @@ SUBAGENT STEP 6 — COMPILE PDF
 5. Verify no blank trailing page exists. If one does, fix and recompile.
 
 =====================================
+SUBAGENT STEP 6b — PAGE COUNT VERIFICATION
+=====================================
+After successful compilation, verify the PDF page count matches RESUME_PAGE_LIMIT.
+
+1. Run: pdfinfo <CandidateName>_Resume.pdf
+   Parse the "Pages:" line to get the actual page count.
+
+2. If actual pages == RESUME_PAGE_LIMIT: pass. Proceed to STEP 7.
+
+3. If actual pages > RESUME_PAGE_LIMIT (content overflow):
+   Apply fixes in this order, recompiling after each until the count matches:
+
+   Attempt 1 — tighten spacing:
+     Add to the LaTeX preamble (after \usepackage lines):
+       \usepackage[compact]{titlesec}
+       \setlength{\parskip}{0pt}
+       \setlength{\itemsep}{0pt}
+       \setlength{\parsep}{0pt}
+
+   Attempt 2 — reduce font size:
+     Change the document class from 11pt to 10pt.
+
+   Attempt 3 — trim least-important content:
+     Remove the least relevant bullet from the oldest or least relevant role.
+     Do NOT remove any required sections or truncate publications.
+
+   After each attempt: recompile, re-run pdfinfo, check count.
+   If still over after 3 attempts: leave as-is, note the overflow in
+   resume_changes.txt, and continue.
+
+4. If actual pages < RESUME_PAGE_LIMIT by more than 0.5 pages:
+   Note it in resume_changes.txt but do NOT pad content to fill space.
+
+=====================================
 SUBAGENT STEP 7 — WRITE OUTPUT FILES
 =====================================
 Write into the job folder:
@@ -101,6 +135,7 @@ resume_changes.txt must include:
 - Skills section adjustments
 - Any omitted content and rationale
 - Keywords bolded and why
+- Final page count and whether it matched RESUME_PAGE_LIMIT (note any overflow or shortfall)
 
 =====================================
 SUBAGENT STEP 8 — COVER LETTER (CONDITIONAL)
