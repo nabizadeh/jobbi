@@ -37,6 +37,7 @@ dashboard.html
 
 # Cached resume text — generated from user's resume files
 resumes/*.txt
+resumes/*.md
 # Keep the placeholder visible in git
 !resumes/DROP_YOUR_RESUME_HERE.txt
 

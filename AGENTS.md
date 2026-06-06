@@ -182,7 +182,7 @@ Your inputs are profile.md and job pages. Your outputs are job folders and subag
 =====================================
 ORCHESTRATOR STEP 1 — JOB SEARCH VIA JOBSPY MCP
 =====================================
-Use the JobSpy MCP tool (search_jobs) to search multiple job boards in a single call.
+Use the JobSpy MCP tool (scrape_jobs_tool) to search multiple job boards in a single call.
 Do NOT launch any subagents for job searching.
 
 Build the parameters from profile.md:
