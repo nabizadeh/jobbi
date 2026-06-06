@@ -93,6 +93,7 @@ After successful compilation, verify the PDF page count matches RESUME_PAGE_LIMI
 
 1. Run: pdfinfo <CandidateName>_Resume.pdf
    Parse the "Pages:" line to get the actual page count.
+   If pdfinfo is not available, skip this step and proceed to STEP 7.
 
 2. If actual pages == RESUME_PAGE_LIMIT: pass. Proceed to STEP 7.
 
@@ -100,11 +101,11 @@ After successful compilation, verify the PDF page count matches RESUME_PAGE_LIMI
    Apply fixes in this order, recompiling after each until the count matches:
 
    Attempt 1 — tighten spacing:
-     Add to the LaTeX preamble (after \usepackage lines):
-       \usepackage[compact]{titlesec}
-       \setlength{\parskip}{0pt}
-       \setlength{\itemsep}{0pt}
-       \setlength{\parsep}{0pt}
+     Add the following after the \usepackage lines (do NOT re-declare packages
+     already loaded — titlesec and enumitem are already required):
+       \titlespacing*{\section}{0pt}{4pt}{4pt}
+       \titlespacing*{\subsection}{0pt}{3pt}{3pt}
+       \setlist[itemize]{noitemsep, topsep=2pt, parsep=0pt, partopsep=0pt}
 
    Attempt 2 — reduce font size:
      Change the document class from 11pt to 10pt.
