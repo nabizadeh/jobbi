@@ -98,7 +98,9 @@ After successful compilation, verify the PDF page count matches RESUME_PAGE_LIMI
 2. If actual pages == RESUME_PAGE_LIMIT: pass. Proceed to STEP 7.
 
 3. If actual pages > RESUME_PAGE_LIMIT (content overflow):
-   Apply fixes in this order, recompiling after each until the count matches:
+   Apply fixes cumulatively — each attempt ADDS to the previous ones.
+   After each attempt: recompile (run pdflatex twice for stable output),
+   re-run pdfinfo, check count. Stop as soon as count matches.
 
    Attempt 1 — tighten spacing:
      Add the following after the \usepackage lines (do NOT re-declare packages
@@ -107,15 +109,14 @@ After successful compilation, verify the PDF page count matches RESUME_PAGE_LIMI
        \titlespacing*{\subsection}{0pt}{3pt}{3pt}
        \setlist[itemize]{noitemsep, topsep=2pt, parsep=0pt, partopsep=0pt}
 
-   Attempt 2 — reduce font size:
+   Attempt 2 — reduce font size (keep Attempt 1 changes):
      Change the document class from 11pt to 10pt.
 
-   Attempt 3 — trim least-important content:
+   Attempt 3 — trim least-important content (keep Attempts 1 and 2):
      Remove the least relevant bullet from the oldest or least relevant role.
      Do NOT remove any required sections or truncate publications.
 
-   After each attempt: recompile, re-run pdfinfo, check count.
-   If still over after 3 attempts: leave as-is, note the overflow in
+   If still over after all 3 attempts: leave as-is, note the overflow in
    resume_changes.txt, and continue.
 
 4. If actual pages < RESUME_PAGE_LIMIT by more than 0.5 pages:
