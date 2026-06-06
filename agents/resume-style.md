@@ -72,12 +72,17 @@ Replace the Header instructions above with:
       Left column (75% of text width): candidate name (large, bold, left-aligned)
         and contact line below it (items separated by vertical bars).
       Right column (20% of text width): candidate photo, right-aligned.
-  - Include the photo with \includegraphics[width=2.8cm]{photo.jpg}.
-    The user must place a file named photo.jpg in the job output folder
-    before compilation. If photo.jpg is not found, omit the photo and
-    fall back to the standard centered header.
+  - Photo handling:
+      1. Look for resumes/photo.jpg in the working directory.
+      2. If found: copy it to the job folder, then include it in LaTeX
+         with \includegraphics[width=2.8cm]{photo.jpg} (relative path works
+         because the .tex file is compiled from the job folder).
+      3. If NOT found: omit the photo column and fall back to the standard
+         centered header. Do NOT fail or stop — just skip the photo.
   - Use a minipage environment for each column; separate with \hfill.
   - Compact, tight spacing below the header before the first section rule.
+  - (The user places their photo once at resumes/photo.jpg — it is reused
+    automatically for every job application.)
 
 ─────────────────────────────────────
 RECIPE 2: Education before Work Experience

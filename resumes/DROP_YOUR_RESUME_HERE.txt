@@ -15,4 +15,7 @@ relevant one as the base for each job application.
 If you provide both a PDF and a plain-text version of the same resume, the PDF
 will be used as the visual formatting reference.
 
+Optional: place a photo here as photo.jpg (or .jpeg/.png) if your market requires
+one (e.g. Denmark, Germany). See agents/resume-style.md Recipe 1 to activate it.
+
 Do NOT rename or delete this file — it keeps the folder visible in git.

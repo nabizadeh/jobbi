@@ -7,6 +7,9 @@ resumes/*.docx
 resumes/*.doc
 resumes/*.odt
 resumes/*.tex
+resumes/*.jpg
+resumes/*.jpeg
+resumes/*.png
 
 # Generated job output folders (nested under results/ going forward)
 results/
