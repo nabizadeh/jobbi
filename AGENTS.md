@@ -26,6 +26,10 @@ IF the user's request is a revision (e.g. "fix the summary in the Google resume"
 "change the font in my Recursion application"):
   → Read agents/revision.md and follow it. Do not search for jobs.
 
+IF the user's request is to refresh or regenerate the dashboard only
+(e.g. "regenerate the dashboard", "refresh the dashboard"):
+  → Run `python3 dashboard.py` and stop. Do not search for jobs.
+
 OTHERWISE (job search or first run):
   → Check whether profile.md exists in the current directory.
 
