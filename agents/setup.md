@@ -72,6 +72,7 @@ JOB_RECENCY_DAYS: {{JOB_RECENCY_DAYS}}
 MIN_JOBS_PER_RUN: {{MIN_JOBS_PER_RUN}}
 RESUME_PAGE_LIMIT: {{RESUME_PAGE_LIMIT}}
 JOB_PLATFORMS: {{JOB_PLATFORMS}}
+COVER_LETTER: {{COVER_LETTER}}
 
 --- RESUME FILES ---
 RESUME_FILES: {{RESUME_FILES}}
@@ -126,6 +127,12 @@ Search preference fields — ask these explicitly with the defaults shown:
     Ask: "How many pages should the tailored resume be? (default: 2):"
     If user presses Enter or provides no input → use 2.
 
+  COVER_LETTER:
+    Ask: "Generate a cover letter for each job? (yes / no, default: no):"
+    If user presses Enter or provides no input → use no.
+    Note: place a file named writing_sample.txt or writing_sample.md in resumes/
+    to give jobbi a sample of your writing style (optional but recommended).
+
   JOB_PLATFORMS:
     Ask: "Which job boards should jobbi search? Available platforms:
       linkedin, indeed, glassdoor, zip_recruiter, google  (US/global)
@@ -177,6 +184,7 @@ JOB_RECENCY_DAYS: <value>
 MIN_JOBS_PER_RUN: <value>
 RESUME_PAGE_LIMIT: <value>
 JOB_PLATFORMS: <value>
+COVER_LETTER: <value>
 
 RESUME_FILES: <value>
 ---

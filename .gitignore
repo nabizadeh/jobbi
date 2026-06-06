@@ -10,6 +10,7 @@ resumes/*.tex
 resumes/*.jpg
 resumes/*.jpeg
 resumes/*.png
+resumes/writing_sample.*
 
 # Generated job output folders (nested under results/ going forward)
 results/

@@ -28,5 +28,6 @@ KEY_TOOLS_AND_PLATFORMS: Python, R, Seurat, DESeq2, Illumina sequencing, 10x Gen
 STRONGEST_SCIENTIFIC_THEMES: mRNA therapeutics, immune profiling, translational biology, genomics
 
 JOB_PLATFORMS: linkedin, indeed, zip_recruiter, google
+COVER_LETTER: no
 
 RESUME_FILES: JaneSmith_Resume.pdf, JaneSmith_Resume.md

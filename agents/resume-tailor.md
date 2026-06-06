@@ -101,3 +101,11 @@ resume_changes.txt must include:
 - Skills section adjustments
 - Any omitted content and rationale
 - Keywords bolded and why
+
+=====================================
+SUBAGENT STEP 8 — COVER LETTER (CONDITIONAL)
+=====================================
+Check COVER_LETTER in profile.md.
+- If COVER_LETTER is "yes": read agents/cover-letter.md from the working directory
+  and follow it exactly to generate cover_letter.md in the job folder.
+- If COVER_LETTER is "no", missing, or empty: skip this step entirely.

@@ -18,4 +18,7 @@ will be used as the visual formatting reference.
 Optional: place a photo here as photo.jpg (or .jpeg/.png) if your market requires
 one (e.g. Denmark, Germany). See agents/resume-style.md Recipe 1 to activate it.
 
+Optional: place a writing sample here as writing_sample.txt or writing_sample.md
+to help jobbi match your tone when generating cover letters.
+
 Do NOT rename or delete this file — it keeps the folder visible in git.
