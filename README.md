@@ -14,7 +14,7 @@ Drop your resume in a folder, run Claude Code, and jobbi finds matching jobs, sc
 
 1. **First run:** reads your resume file(s), builds a personal profile, asks you to fill any gaps
 2. **Every run after:** skips setup and goes straight to job hunting
-3. Searches LinkedIn and official company career pages for roles posted in the last 14 days
+3. Searches your configured job boards (LinkedIn, Indeed, and others) and verifies each posting is still open
 4. Scores each job against your profile (skills, domain, seniority, tools)
 5. Rejects weak matches; accepts only scores ≥ 70
 6. For every accepted job: generates a tailored LaTeX resume, compiles it to PDF, and logs it to a tracking CSV
@@ -170,6 +170,8 @@ Place more than one resume file in `resumes/`. jobbi reads all of them and uses 
 ## Re-running setup
 
 Delete `profile.md` and run Claude Code again. jobbi will re-read your resumes and rebuild the profile from scratch.
+
+You can also edit `profile.md` directly at any time — for example, to change `JOB_PLATFORMS` without a full re-setup.
 
 ---
 

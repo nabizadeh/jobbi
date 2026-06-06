@@ -31,7 +31,8 @@ Use the JobSpy MCP tool (scrape_jobs_tool) to search multiple job boards in a si
 Do NOT launch any subagents for job searching.
 
 Build the parameters from profile.md:
-- site_name: ["linkedin", "indeed", "glassdoor", "zip_recruiter", "google"]
+- site_name: read JOB_PLATFORMS from profile.md as a list
+  (if JOB_PLATFORMS is missing or empty, default to: linkedin, indeed, glassdoor, zip_recruiter, google)
 - search_term: the most relevant value from TARGET_ROLES
 - results_wanted: 25
 - hours_old: JOB_RECENCY_DAYS × 24
@@ -51,8 +52,9 @@ ORCHESTRATOR STEP 1c — DEDUPLICATE RESULTS
 =====================================
 Combine all JobSpy MCP results into one flat candidate list.
 Deduplicate: if two entries share the same Job Title AND Company, keep only one.
-Prefer the entry from the higher-priority source:
-  linkedin > indeed > glassdoor > zip_recruiter > google
+Prefer the entry from the higher-priority source, in the order listed in JOB_PLATFORMS
+(first platform in the list = highest priority).
+Default priority if JOB_PLATFORMS not set: linkedin > indeed > glassdoor > zip_recruiter > google
 
 Proceed to STEP 2 with the deduplicated list.
 

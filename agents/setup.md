@@ -69,6 +69,7 @@ STRONGEST_SCIENTIFIC_THEMES: {{STRONGEST_SCIENTIFIC_THEMES}}
 JOB_RECENCY_DAYS: {{JOB_RECENCY_DAYS}}
 MIN_JOBS_PER_RUN: {{MIN_JOBS_PER_RUN}}
 RESUME_PAGE_LIMIT: {{RESUME_PAGE_LIMIT}}
+JOB_PLATFORMS: {{JOB_PLATFORMS}}
 
 --- RESUME FILES ---
 RESUME_FILES: {{RESUME_FILES}}
@@ -110,6 +111,17 @@ Search preference fields — ask these explicitly with the defaults shown:
     Ask: "How many pages should the tailored resume be? (default: 2):"
     If user presses Enter or provides no input → use 2.
 
+  JOB_PLATFORMS:
+    Ask: "Which job boards should jobbi search? Available platforms:
+      linkedin, indeed, glassdoor, zip_recruiter, google  (US/global)
+      bayt                                                 (Middle East)
+      naukri                                               (India)
+      bdjobs                                               (Bangladesh)
+    Enter a comma-separated list, or press Enter for the default:
+    (default: linkedin, indeed, glassdoor, zip_recruiter, google):"
+    If user presses Enter or provides no input → use: linkedin, indeed, glassdoor, zip_recruiter, google.
+    Tip: remove platforms that have few listings in your market (e.g. remove glassdoor for Denmark).
+
 =====================================
 SETUP STEP 4 — SAVE profile.md
 =====================================
@@ -147,6 +159,7 @@ STRONGEST_SCIENTIFIC_THEMES: <value>
 JOB_RECENCY_DAYS: <value>
 MIN_JOBS_PER_RUN: <value>
 RESUME_PAGE_LIMIT: <value>
+JOB_PLATFORMS: <value>
 
 RESUME_FILES: <value>
 ---
