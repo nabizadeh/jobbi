@@ -71,7 +71,7 @@ cp /path/to/YourResume.pdf resumes/   # or .txt, .md, .docx, .tex
 claude
 
 # 5. Paste this prompt to kick things off:
-# "Start jobbi — read my resume, set up my profile, and search for matching jobs."
+# "Search for jobs — read my resume, set up my profile, and find matching jobs."
 ```
 
 Once you send that prompt, jobbi will:
@@ -89,12 +89,12 @@ Once Claude Code is open in the jobbi directory, paste one of these prompts:
 
 **First run** — profile setup + job search:
 ```
-Start jobbi — read my resume, set up my profile, and search for matching jobs.
+Search for jobs — read my resume, set up my profile, and find matching jobs.
 ```
 
 **Later runs** — skip setup, go straight to job search:
 ```
-Run jobbi — search for new job matches and generate tailored resumes.
+Find new job matches and generate tailored resumes.
 ```
 
 **Revise a resume** — after jobs have been found:
