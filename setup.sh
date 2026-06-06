@@ -66,14 +66,32 @@ ok "dependencies installed"
 
 echo ""
 
+# ── Verify server.py exists ────────────────────────────────────────────────────
+SERVER_PY="$INSTALL_DIR/jobspy_mcp_server/server.py"
+[ -f "$SERVER_PY" ] || fail "server.py not found at $SERVER_PY — clone may be incomplete"
+
+# ── Smoke test: server starts without crashing ─────────────────────────────────
+echo "Verifying server starts correctly..."
+"$VENV/bin/python" "$SERVER_PY" &
+SERVER_PID=$!
+sleep 2
+if kill -0 $SERVER_PID 2>/dev/null; then
+    kill $SERVER_PID 2>/dev/null || true
+    wait $SERVER_PID 2>/dev/null || true
+    ok "server starts cleanly"
+else
+    fail "server exited immediately — check $SERVER_PY for errors"
+fi
+
 # ── Patch ~/.claude/settings.json ─────────────────────────────────────────────
 echo "Configuring Claude Code..."
 
-"$VENV/bin/python" - "$SETTINGS" "$VENV/bin/python" <<'PY'
+"$VENV/bin/python" - "$SETTINGS" "$VENV/bin/python" "$SERVER_PY" <<'PY'
 import json, os, sys
 
 settings_path = sys.argv[1]
 venv_python   = sys.argv[2]
+server_py     = sys.argv[3]
 
 if os.path.exists(settings_path):
     with open(settings_path) as f:
@@ -85,7 +103,7 @@ else:
 settings.setdefault("mcpServers", {})
 settings["mcpServers"]["jobspy"] = {
     "command": venv_python,
-    "args": ["-m", "jobspy_mcp_server"]
+    "args": [server_py]
 }
 
 with open(settings_path, "w") as f:
