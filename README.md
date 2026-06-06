@@ -26,6 +26,30 @@ Drop your resume in a folder, run Claude Code, and jobbi finds matching jobs, sc
 - [Claude Code](https://claude.ai/code) (CLI)
 - A LaTeX distribution: [TeX Live](https://tug.org/texlive/), [MacTeX](https://tug.org/mactex/), or [Tectonic](https://tectonic-typesetting.github.io/)
 - Your resume (PDF, Word, LaTeX, Markdown, or plain text)
+- JobSpy MCP server (see setup below)
+
+---
+
+## JobSpy MCP Setup
+
+jobbi uses the [JobSpy MCP server](https://github.com/chinpeerapat/jobspy-mcp-server) to search job boards. Run the setup script once before your first run:
+
+```bash
+bash setup.sh
+```
+
+The script will:
+- Install the JobSpy MCP server into `~/tools/jobspy-mcp-server`
+- Configure Claude Code automatically (merges into your existing `~/.claude/settings.json`)
+- Tell you exactly what it's doing at each step
+
+**Requirements:** git and [uv](https://docs.astral.sh/uv/getting-started/installation/) (uv will be auto-installed if missing). macOS and Linux only — Windows users run this inside WSL.
+
+After the script finishes, **restart Claude Code** for the MCP server to take effect.
+
+> **To verify:** after restarting, ask Claude: `List the available MCP tools.` — you should see `scrape_jobs_tool`. If it's missing, jobbi will stop and tell you rather than attempting to install anything on its own.
+
+> **To uninstall:** delete `~/tools/jobspy-mcp-server` and remove the `"jobspy"` entry from `~/.claude/settings.json`.
 
 ---
 

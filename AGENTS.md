@@ -184,7 +184,24 @@ Keep your context lean: do not read full resume files or generate any LaTeX here
 Your inputs are profile.md and job pages. Your outputs are job folders and subagent launches.
 
 =====================================
-ORCHESTRATOR STEP 1 — JOB SEARCH VIA JOBSPY MCP
+ORCHESTRATOR STEP 1 — PRE-FLIGHT CHECK
+=====================================
+Before searching, verify that the JobSpy MCP tool (scrape_jobs_tool) is available in your
+current environment.
+
+If scrape_jobs_tool is NOT available:
+- Stop immediately. Do NOT fall back to WebSearch.
+- Do NOT attempt to install or configure any MCP server on your own.
+- Print this message and nothing else:
+
+  "JobSpy MCP is not set up. jobbi cannot search for jobs without it.
+   Please follow the setup instructions in the README (JobSpy MCP Setup section),
+   then restart Claude Code and try again."
+
+If scrape_jobs_tool IS available: proceed to STEP 1b.
+
+=====================================
+ORCHESTRATOR STEP 1b — JOB SEARCH VIA JOBSPY MCP
 =====================================
 Use the JobSpy MCP tool (scrape_jobs_tool) to search multiple job boards in a single call.
 Do NOT launch any subagents for job searching.
@@ -203,10 +220,10 @@ Make one call per location + one remote call:
 
 If only one location is set, two calls suffice (that location + remote).
 
-Collect all results in memory as a flat list. Proceed to STEP 1b.
+Collect all results in memory as a flat list. Proceed to STEP 1c.
 
 =====================================
-ORCHESTRATOR STEP 1b — DEDUPLICATE RESULTS
+ORCHESTRATOR STEP 1c — DEDUPLICATE RESULTS
 =====================================
 Combine all JobSpy MCP results into one flat candidate list.
 Deduplicate: if two entries share the same Job Title AND Company, keep only one.
