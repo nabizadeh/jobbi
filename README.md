@@ -40,7 +40,7 @@ bash setup.sh
 
 The script will:
 - Install the JobSpy MCP server into `~/tools/jobspy-mcp-server`
-- Configure Claude Code automatically (merges into your existing `~/.claude/settings.json`)
+- Register it with Claude Code via `claude mcp add` (user scope — works in any project)
 - Tell you exactly what it's doing at each step
 
 **Requirements:** git and [uv](https://docs.astral.sh/uv/getting-started/installation/) (uv will be auto-installed if missing). macOS and Linux only — Windows users run this inside WSL.
