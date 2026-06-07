@@ -19,6 +19,10 @@
     "Bash(pdflatex*)",
     "Bash(tectonic*)",
     "Bash(latexmk*)",
+    "Bash(/usr/local/bin/tectonic*)",
+    "Bash(cd * && tectonic*)",
+    "Bash(cd * && pdflatex*)",
+    "Bash(cd * && /usr/local/bin/tectonic*)",
     "Bash(pdftotext*)",
     "Bash(pdfinfo*)",
 
