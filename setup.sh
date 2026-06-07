@@ -11,7 +11,6 @@ NC='\033[0m'
 REPO_URL="https://github.com/chinpeerapat/jobspy-mcp-server.git"
 INSTALL_DIR="$HOME/tools/jobspy-mcp-server"
 VENV="$INSTALL_DIR/.venv"
-SETTINGS="$HOME/.claude/settings.json"
 
 ok()   { echo -e "${GREEN}✓${NC} $1"; }
 warn() { echo -e "${YELLOW}⚠${NC}  $1"; }
@@ -83,35 +82,22 @@ else
     fail "server exited immediately — check $SERVER_PY for errors"
 fi
 
-# ── Patch ~/.claude/settings.json ─────────────────────────────────────────────
-echo "Configuring Claude Code..."
+# ── Register with Claude Code via claude mcp add ───────────────────────────────
+echo "Registering MCP server with Claude Code..."
 
-"$VENV/bin/python" - "$SETTINGS" "$VENV/bin/python" "$SERVER_PY" <<'PY'
-import json, os, sys
+if ! command -v claude &>/dev/null; then
+    fail "claude CLI not found. Install Claude Code first: https://claude.ai/code"
+fi
 
-settings_path = sys.argv[1]
-venv_python   = sys.argv[2]
-server_py     = sys.argv[3]
+# Remove any stale entry (ignore errors if it doesn't exist)
+claude mcp remove jobspy -s user &>/dev/null || true
+claude mcp remove jobspy &>/dev/null || true
 
-if os.path.exists(settings_path):
-    with open(settings_path) as f:
-        settings = json.load(f)
-else:
-    os.makedirs(os.path.dirname(settings_path), exist_ok=True)
-    settings = {}
+# Register at user scope so it works in any project directory
+claude mcp add -s user jobspy -- "$VENV/bin/python" "$SERVER_PY" &>/dev/null \
+    || fail "Failed to register MCP server. Check that Claude Code CLI is installed."
 
-settings.setdefault("mcpServers", {})
-settings["mcpServers"]["jobspy"] = {
-    "command": venv_python,
-    "args": [server_py]
-}
-
-with open(settings_path, "w") as f:
-    json.dump(settings, f, indent=2)
-    f.write("\n")
-PY
-
-ok "updated $SETTINGS"
+ok "registered with Claude Code (user scope — works in any project)"
 
 echo ""
 echo -e "${GREEN}${BOLD}Setup complete!${NC}"
@@ -119,6 +105,7 @@ echo ""
 echo "  Next: restart Claude Code so it picks up the new MCP server."
 echo "  Then start jobbi — scrape_jobs_tool will be available."
 echo ""
-echo "  To uninstall: delete $INSTALL_DIR"
-echo "  and remove the \"jobspy\" entry from $SETTINGS"
+echo "  To uninstall:"
+echo "    claude mcp remove jobspy -s user"
+echo "    rm -rf $INSTALL_DIR"
 echo ""
