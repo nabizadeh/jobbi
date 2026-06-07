@@ -49,7 +49,7 @@ After the script finishes, **restart Claude Code** for the MCP server to take ef
 
 > **To verify:** after restarting, ask Claude: `List the available MCP tools.` — you should see `scrape_jobs_tool`. If it's missing, jobbi will stop and tell you rather than attempting to install anything on its own.
 
-> **To uninstall:** delete `~/tools/jobspy-mcp-server` and remove the `"jobspy"` entry from `~/.claude/settings.json`.
+> **To uninstall:** run `claude mcp remove jobspy -s user` then `rm -rf ~/tools/jobspy-mcp-server`.
 
 ---
 
